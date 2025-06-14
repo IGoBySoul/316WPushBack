@@ -2,27 +2,47 @@
 /*                                                                            */
 /*    Module:       main.cpp                                                  */
 /*    Author:       patrick                                                   */
-/*    Created:      6/11/2025, 11:55:26 PM                                    */
+/*    Created:      6/13/2025, 1:04:57 PM                                     */
 /*    Description:  V5 project                                                */
 /*                                                                            */
 /*----------------------------------------------------------------------------*/
+
 #include "vex.h"
 
 using namespace vex;
 
-// A global instance of vex::brain used for printing to the V5 brain screen
-vex::brain       Brain;
+// A global instance of competition
+competition Competition;
 
 // define your global instances of motors and other devices here
 
+void pre_auton(void) {
+
+  // All activities that occur before the competition starts
+  // Example: clearing encoders, setting servo positions, ...
+}
+
+
+void autonomous(void) {
+}
+
+
+void usercontrol(void) {
+  // User control code here, inside the loop
+  while (1) {
+    wait(20, msec); // Sleep the task for a short amount of time to prevent wasted resources.
+  }
+}
 
 int main() {
+  // Set up callbacks for autonomous and driver control periods.
+  Competition.autonomous(autonomous);
+  Competition.drivercontrol(usercontrol);
 
-    Brain.Screen.printAt( 10, 50, "Hello V5" );
-   
-    while(1) {
-        
-        // Allow other tasks to run
-        this_thread::sleep_for(10);
-    }
+  pre_auton();
+
+  // Prevent main from exiting with an infinite loop.
+  while (true) {
+    wait(100, msec);
+  }
 }
